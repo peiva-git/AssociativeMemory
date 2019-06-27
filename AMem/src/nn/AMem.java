@@ -59,7 +59,7 @@ public class AMem extends PApplet{
 			network = net.get1Dnetwork();
 			for (int i = 0; i < network.length; i++) {
 				
-				network[i] = new Neuron(dimInputSpace, 1);
+				network[i] = new Neuron(dimInputSpace, 1, "discrete weights");
 			}
 			
 			saveImages();
@@ -89,9 +89,10 @@ public class AMem extends PApplet{
 					
 					images[e].loadPixels();
 					newWeight += (images[e].pixels[i] * images[e].pixels[j]) / neuronNumber;
+					// errato, maschera per modifica singolo bit necessaria
 				}
 				if (i == j) {
-					network[j].setWeight(0, i);
+					network[j].setWeight(0, i); // pesi minori per spazio (teoricamente n * n bit per matrice dei pesi)
 				}
 				network[j].setWeight(newWeight, i);
 			}
